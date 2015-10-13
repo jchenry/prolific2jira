@@ -42,9 +42,9 @@ func newIssue(f []string) *issue {
 	}
 }
 
-func toJSON(i *issue) string {
+func toJSON(i *issue) []byte {
 	b, _ := json.Marshal(i)
-	return string(b)
+	return b
 }
 
 func toIssueType(t string) string {

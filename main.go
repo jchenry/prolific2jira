@@ -26,8 +26,6 @@ func main() {
 	bufrdr.ReadLine()
 	csvrdr := csv.NewReader(bufrdr)
 	processIssue(csvrdr, printJSON)
-
-	fmt.Println("I GET HERE!")
 }
 
 func processIssue(r *csv.Reader, process func(issue []string) error) error {
@@ -55,6 +53,6 @@ func printCSV(issue []string) error {
 }
 func printJSON(issue []string) error {
 	i := newIssue(issue)
-	fmt.Println(toJSON(i))
+	fmt.Println(string(toJSON(i)))
 	return nil
 }

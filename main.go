@@ -24,13 +24,20 @@ func main() {
 	bufrdr := bufio.NewReader(os.Stdin)
 	bufrdr.ReadLine()
 	bufrdr.ReadLine()
-	csvrdr := csv.NewReader(bufrdr)
-	processIssue(csvrdr, printJSON)
+	// processIssue(csvrdr, printJSON)
+
+	processIssue(bufrdr, submitIssue, *user, *pass, *svr, *prj)
+
 }
 
-func processIssue(r *csv.Reader, process func(issue []string) error) error {
+type procFunc func(i []string, user string, pass string, srv string, prj string) error
+
+func processIssue(r io.Reader, process procFunc, user string, pass string, svr string, prj string) error {
+
+	csvrdr := csv.NewReader(r)
+
 	for {
-		record, err := r.Read()
+		record, err := csvrdr.Read()
 		if err == io.EOF {
 			break
 		}
@@ -38,7 +45,7 @@ func processIssue(r *csv.Reader, process func(issue []string) error) error {
 			log.Fatal(err)
 		}
 
-		err = process(record)
+		err = process(record, user, pass, svr, prj)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -47,12 +54,12 @@ func processIssue(r *csv.Reader, process func(issue []string) error) error {
 	return nil
 }
 
-func printCSV(issue []string) error {
+func printCSV(issue []string, user string, pass string, svr string, prj string) error {
 	fmt.Println(issue)
 	return nil
 }
-func printJSON(issue []string) error {
-	i := newIssue(issue)
+func printJSON(issue []string, user string, pass string, svr string, prj string) error {
+	i := newIssue(issue, prj)
 	fmt.Println(string(toJSON(i)))
 	return nil
 }

@@ -21,6 +21,11 @@ func main() {
 		return
 	}
 
+	flag.Parse()
+
+	// fmt.Printf("%v", os.Args)
+	// fmt.Printf(*svr)
+
 	bufrdr := bufio.NewReader(os.Stdin)
 	bufrdr.ReadLine()
 	bufrdr.ReadLine()

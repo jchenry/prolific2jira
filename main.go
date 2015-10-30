@@ -28,7 +28,6 @@ func main() {
 
 	bufrdr := bufio.NewReader(os.Stdin)
 	bufrdr.ReadLine()
-	bufrdr.ReadLine()
 	// processIssue(csvrdr, printJSON)
 
 	processIssue(bufrdr, submitIssue, *user, *pass, *svr, *prj)

@@ -26,7 +26,7 @@ type project struct {
 	Key string `json:"key"`
 }
 
-func newIssue(f []string) *issue {
+func newIssue(f []string, prj string) *issue {
 	return &issue{
 		Fields: fields{
 			Title: f[0],
@@ -36,7 +36,7 @@ func newIssue(f []string) *issue {
 			Description: f[2],
 			Labels:      strings.Split(f[3], ","),
 			Project: project{
-				Key: *prj,
+				Key: prj,
 			},
 		},
 	}
